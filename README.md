@@ -9,9 +9,7 @@ Full instructions  - https://facebook.github.io/react-native/docs/android-setup.
 ```bash
 #Install React tools (From https://facebook.github.io/react-native/docs/getting-started.html#content)
 
-(#If you have a problem with spawnSync
-react android TypeError: Object [object Object] has no method 'spawnSync'
-- fix npm and node version on macosx https://gist.github.com/DanHerbert/9520689)
+#(If you have a problem with spawnSync react android TypeError: Object [object Object] has no method 'spawnSync' - fix npm and node version on macosx https://gist.github.com/DanHerbert/9520689)
 
  brew instal nvm watchman flow
 
