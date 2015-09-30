@@ -1,0 +1,14 @@
+{
+  "name": "InstagramReader",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node_modules/react-native/packager/packager.sh"
+  },
+  "dependencies": {
+    "react-native": "^0.11.0",
+    "react-native-grid-view": "^0.3.7",
+    "react-native-refreshable-listview": "^1.3.0",
+    "react-native-refreshable-scroll-view": "0.0.6"
+  }
+}
