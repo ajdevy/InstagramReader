@@ -73,23 +73,21 @@ TODO: launch emulator manager and create emulator, find tutorial
 drwxr-xr-x  15 user  staff  510 Sep 24 00:03 react-native
 drwxr-xr-x  11 user  staff  374 Sep 28 14:45 react-native-refresher
 
-
-
-#first you need to register in instagram if you haven't already
-TODO: link to registration
-
-
-#then you need to register your developer application 
-https://instagram.com/accounts/login/?next=%2Fdeveloper%2Fregister%2F
-
-#after you have registered and activated your account from the email sent
-#go to the manage client sections to create a new client 
-https://instagram.com/developer/clients/manage/
-
 ```
 
+#Instagram developer account registration
 
+First you need to register in instagram if you haven't already -
+download the Instagram android or ios app and register within
 
-#need to get screen size so we can have a good fit for our elements
+Then you need to register your developer application -
+https://instagram.com/accounts/login/?next=%2Fdeveloper%2Fregister%2F
+
+After you have registered and activated your account from the email sent
+go to the manage client sections to create a new client -
+https://instagram.com/developer/clients/manage/
+
+#Application development
+We need to get screen size so we can have a good fit for our elements
 TODO: https://github.com/pjjanak/react-native-viewport
-#or use the pixeldensity stuff provided by react
+TODO: or use the pixeldensity stuff provided by react
