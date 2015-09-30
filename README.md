@@ -12,15 +12,15 @@ Full instructions  - https://facebook.github.io/react-native/docs/android-setup.
 (#If you have a problem with spawnSync
 react android TypeError: Object [object Object] has no method 'spawnSync'
 - fix npm and node version on macosx https://gist.github.com/DanHerbert/9520689)
-
+```bash
  brew instal nvm watchman flow
 
  nvm install node && nvm alias default node
-
+```
  #problem with nvm not found
-
+```bash
  brew info nvm
-
+```
 # [~] brew info nvm
 #nvm: stable 0.20.0, HEAD
 #https://github.com/creationix/nvm
