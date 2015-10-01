@@ -15,7 +15,7 @@ var {
 var InstagramReader = React.createClass({
   render: function() {
     return (
-      <View style={styles.container}>
+      <View style={styles.loadingContainer}>
         <Text style={styles.welcome}>
           Welcome to React Native!
         </Text>
@@ -32,7 +32,7 @@ var InstagramReader = React.createClass({
 });
 
 var styles = StyleSheet.create({
-  container: {
+  loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

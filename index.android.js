@@ -20,6 +20,7 @@ var {
     Navigator,
     Component,
     BackAndroid,
+    ListView,
     } = React;
 
 var GridView = require('react-native-grid-view');
@@ -108,6 +109,7 @@ var HomeScreen = React.createClass({
                 itemsPerRow={THUMBNAILS_PER_ROW}
                 renderItem={this.renderItem}
                 contentContainerStyle={styles.gridView}/>
+
         )
     },
 
@@ -118,7 +120,7 @@ var HomeScreen = React.createClass({
     renderLoadingView() {
         //TODO: create spinner
         return (
-            <View style={styles.container}>
+            <View style={styles.loadingContainer}>
                 <Text>
                     Loading grams...
                 </Text>
@@ -157,18 +159,68 @@ var HomeScreen = React.createClass({
 });
 
 var DetailsScreen = React.createClass({
-    render() {
-        console.log("Details screen render() data = " + this.props.data);
+    getInitialState: function () {
+        return {
+            dataSource: new ListView.DataSource({
+                rowHasChanged: (row1, row2) => row1 !== row2,
+            }),
+        };
+    },
+
+
+    renderCommentItem(comment){
+        var commentDate = new Date(parseInt(comment.created_time) * 1000);
+        var parsedDate = (commentDate.getMonth() + 1) + "/" + commentDate.getDate() + "/" + commentDate.getFullYear();
         return (
             <View>
-                <TouchableOpacity onPress={this.props.navigator.pop}>
+
+                <View style={{flexDirection: 'row'}}>
+                    <Image
+                        source={{uri: comment.from.profile_picture}}
+                        style={styles.commentProfileImage}
+                        />
+
+                    <Text style={styles.commentTime}>{parsedDate}</Text>
+                </View>
+                <View >
+                    <Text style={{color: "blue"}}>{comment.from.username} <Text style={styles.commentText}>{comment.text}</Text></Text>
+                </View>
+            </View>
+        );
+    },
+
+    render() {
+        console.log("Details screen render() his.props.data.comments.count = " + this.props.data.comments.count);
+        if (this.props.data.comments.count > 0) {
+
+        }
+
+        return (  <View style={styles.flexOne}>
+            <TouchableOpacity onPress={this.props.navigator.pop} style={styles.flexOne}>
+                <View style={styles.flexZero}>
                     <Text>
                         Details:{this.props.data.link}
                     </Text>
-                </TouchableOpacity>
-            </View>
-
-        );
+                </View>
+                <View style={styles.flexOne}>
+                    <Image
+                        resizeMode={Image.resizeMode.contain}
+                        //hack for modifying the url to get a bigger picture, currently the api does not return the link to the 1080x1080 picture
+                        source={{uri: this.props.data.images.standard_resolution.url.replace("s640x640","s1080x1080")}}
+                        style={styles.myImage}>
+                    </Image>
+                </View>
+                <View style={styles.flexOne}>
+                    <Text>
+                        Comments:
+                    </Text>
+                    <ListView
+                        renderRow={this.renderCommentItem}
+                        dataSource={this.state.dataSource.cloneWithRows(this.props.data.comments.data)}
+                        loadData={this.fetchInstagramPost}/>
+                </View>
+            </TouchableOpacity>
+        </View>);
     },
 });
 
@@ -196,7 +248,7 @@ var InstagramReader = React.createClass({
 });
 
 var styles = StyleSheet.create({
-    container: {
+    loadingContainer: {
         position: 'absolute',
         top: 0,
         bottom: 0,
@@ -215,6 +267,30 @@ var styles = StyleSheet.create({
     thumbnail: {
         width: 120,
         height: 120,
+    },
+    flexOne: {
+        flex: 1,
+    },
+    myImage: {
+        alignItems: 'stretch',
+        flex: 1,
+        //width: 120,
+        //height: 120,
+    },
+    flexZero: {
+        flex: 0,
+    },
+    commentTime: {
+        textAlign: 'right',
+        fontSize: 10,
+    },
+    commentText: {
+        color: "grey",
+        fontSize: 10,
+    },
+    commentProfileImage: {
+        width: 40,
+        height: 40,
     },
     gridView: {
         //For aligning the children, we need to modify lib file
