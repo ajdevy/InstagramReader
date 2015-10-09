@@ -31,7 +31,7 @@ var INSTAGRAM_API_RECENT_URL = INSTAGRAM_API_URL + 'tags/cannabis/media/recent?c
 //TODO: calculate how many columns will be available on the screen
 var THUMBNAILS_PER_ROW = 3;
 
-var UPDATE_RECENTS_DELAY = 15000;//in milliseconds
+var UPDATE_RECENTS_DELAY = 5000;//in milliseconds
 
 //default back behaviour for android, does not work on emulator :(
 BackAndroid.addEventListener('hardwareBackPress', () => {
@@ -183,7 +183,8 @@ var DetailsScreen = React.createClass({
                     <Text style={styles.commentTime}>{parsedDate}</Text>
                 </View>
                 <View >
-                    <Text style={{color: "blue"}}>{comment.from.username} <Text style={styles.commentText}>{comment.text}</Text></Text>
+                    <Text style={{color: "blue"}}>{comment.from.username} <Text
+                        style={styles.commentText}>{comment.text}</Text></Text>
                 </View>
             </View>
         );
@@ -197,14 +198,26 @@ var DetailsScreen = React.createClass({
 
         return (  <View style={styles.flexOne}>
             <TouchableOpacity onPress={this.props.navigator.pop} style={styles.flexOne}>
-                <View style={styles.flexZero}>
-                    <Text>
-                        Details:{this.props.data.link}
-                    </Text>
+                <View style={styles.detailsHeaderContainer}>
+                    <View style={{flexDirection: 'row',flex : 1}}>
+                        <View style={styles.profileImageContainer}>
+                            <Image
+                                source={{uri: this.props.data.caption.from.profile_picture}}
+                                resizeMode={Image.resizeMode.cover}
+                                style={styles.profileImage}
+                                />
+
+                        </View>
+                        <View style={styles.detailsTextContainer}>
+                            <Text style={{color: "blue"}}>{this.props.data.caption.from.username} <Text
+                                style={{color: "grey"}}>{this.props.data.caption.text}</Text></Text>
+                        </View>
+
+                    </View>
                 </View>
-                <View style={styles.flexOne}>
+                <View style={styles.detailsImageContainer}>
                     <Image
-                        resizeMode={Image.resizeMode.contain}
+                        resizeMode={Image.resizeMode.cover}
                         //hack for modifying the url to get a bigger picture, currently the api does not return the link to the 1080x1080 picture
                         source={{uri: this.props.data.images.standard_resolution.url.replace("s640x640","s1080x1080")}}
                         style={styles.myImage}>
@@ -291,6 +304,25 @@ var styles = StyleSheet.create({
     commentProfileImage: {
         width: 40,
         height: 40,
+    },
+    profileImage: {
+        width: 80,
+        height: 80,
+    },
+    profileImageContainer: {
+        padding: 4,
+    },
+    detailsImageContainer: {
+        flex: 1,
+        paddingTop: 10,
+    },
+    detailsHeaderContainer: {
+        flex: 0,
+        padding: 5,
+    },
+    detailsTextContainer: {
+        padding: 5,
+        flex:1,
     },
     gridView: {
         //For aligning the children, we need to modify lib file
